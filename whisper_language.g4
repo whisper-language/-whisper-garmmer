@@ -1,4 +1,4 @@
-grammar TL;
+grammar whisper_language;
 
 parse
  : (block|statement) EOF
@@ -81,14 +81,14 @@ expression
  | Bool                                                 #boolExpression
  | Null                                                 #nullExpression
  | functionCall indexes?                                #functionCallExpression
- | list indexes?                                        #listExpression
+ | list_Alias indexes?                                  #listExpression
  | Identifier indexes?                                  #identifierExpression
- | P_String indexes?                                      #stringExpression
+ | String_Alias indexes?                                #stringExpression
  | '(' expression ')' indexes?                          #expressionExpression
- | Input '(' P_String? ')'                                #inputExpression
+ | Input '(' String_Alias? ')'                          #inputExpression
  ;
 
-list
+list_Alias
  : '[' exprList? ']'
  ;
 
@@ -113,13 +113,37 @@ End      : 'end';
 In       : 'in';
 Null     : 'null';
 
+//------------------ 位操作运算符
+LABEL_Alias         :   'label';
+GOTO_Alias          :   'goto';
+JUMP_Alias          :   'jump';
+IMPORT_Alias        :   'import';
+INCLUDE_Alias       :   'include';
+Modulus_Alias       :   'modulue';
+Class_Alias         :   'class';
+INTERFACE_Alias     :   'interface';
+EXTEND_Alias        :   'extend';
+//------------------
+
+
+//------------------ 位操作运算符
+BitwiseAnd                  :  '&';
+BitwiseOr                   :  '|';
+BitwiseNot                  :  '^';
+//按位取反
+BitwiseNegationOperator     :  '~';
+LeftShiftOperator           :  '>>';
+RightShiftOperator          :  '<<';
+//------------------
+
+
+
 Or       : '||';
 And      : '&&';
 Equals   : '==';
 NEquals  : '!=';
 GTEquals : '>=';
 LTEquals : '<=';
-Pow      : '^';
 Excl     : '!';
 GT       : '>';
 LT       : '<';
@@ -157,7 +181,7 @@ Identifier
  : [a-zA-Z_] [a-zA-Z_0-9]*
  ;
 
-P_String
+String_Alias
  : ["] ( ~["\r\n\\] | '\\' ~[\r\n] )* ["]
  | ['] ( ~['\r\n\\] | '\\' ~[\r\n] )* [']
  ;

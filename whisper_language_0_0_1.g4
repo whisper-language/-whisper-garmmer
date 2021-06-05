@@ -1,4 +1,4 @@
-grammar whisper_language;
+grammar whisper_language_0_0_1;
 
 parse
  : (block|statement) EOF

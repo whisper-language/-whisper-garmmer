@@ -1,4 +1,4 @@
-grammar whisper_language_0_0_1;
+grammar WhisperLanguage;
 
 parse
  : (block|statement) EOF
@@ -68,7 +68,7 @@ exprList
 expression
  : '-' expression                                       #unaryMinusExpression
  | '!' expression                                       #notExpression
- | <assoc=right> expression '^' expression              #powerExpression
+ | <assoc=right> expression '**' expression              #powerExpression
  | expression op=( '*' | '/' | '%' ) expression         #multExpression
  | expression op=( '+' | '-' ) expression               #addExpression
  | expression op=( '>=' | '<=' | '>' | '<' ) expression #compExpression
